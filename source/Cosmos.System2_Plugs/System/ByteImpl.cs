@@ -1,5 +1,6 @@
 using IL2CPU.API.Attribs;
 using Cosmos.Common;
+using Cosmos.Core;
 
 namespace Cosmos.System_Plugs.System
 {
@@ -20,10 +21,14 @@ namespace Cosmos.System_Plugs.System
                 short ind = (short)digits.IndexOf(s[i]);
                 if (ind == -1)
                 {
-                    Console.Write("Digit '");
-                    Console.Write(s[i]);
-                    Console.WriteLine("' not found!");
-                    throw new FormatException();
+                    if (s[i] == '\0')
+                    {
+                        break;
+                    }
+
+                    string error = $"Digit '{s[i]}' not found!";
+                    Console.WriteLine(error);
+                    throw new FormatException(error);
                 }
 
                 result = (byte)(result * 10 + ind);
