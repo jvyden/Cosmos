@@ -37,7 +37,7 @@ namespace Cosmos.Build.Builder
 
         public IEnumerable<IDependency> GetDependencies()
         {
-            yield return new ReposDependency(_cosmosDir); 
+            yield return new ReposDependency(_cosmosDir);
             yield return new ProperRepoNameDependency(_cosmosDir);
             yield return new VisualStudioDependency(_visualStudioInstance);
             yield return new VisualStudioWorkloadsDependency(_visualStudioInstance);
@@ -110,11 +110,6 @@ namespace Cosmos.Build.Builder
                 "Cosmos.Build.Tasks",
             };
 
-            foreach (var task in PackProject(cosmosPackageProjects, new List<string>()))
-            {
-                yield return task;
-            }
-
             cosmosPackageProjects = new List<string>()
             {
                 "Cosmos.Core_Plugs", // we ned to restore il2cpu.debug.
@@ -186,7 +181,7 @@ namespace Cosmos.Build.Builder
                 var packageProjectPaths = cosmosProjects.Select(p => Path.Combine(cosmosSourceDir, p))
                 .Concat(il2cpuProjects.Select(p => Path.Combine(il2cpuSourceDir, p)))
                 .Concat(xSharpProjects.Select(p => Path.Combine(xSharpSourceDir, p)));
-                
+
                 var packagesDir = Path.Combine(vsipDir, "packages");
                 var packageVersionLocalBuildSuffix = DateTime.Now.ToString("yyyyMMddhhmmss");
 
